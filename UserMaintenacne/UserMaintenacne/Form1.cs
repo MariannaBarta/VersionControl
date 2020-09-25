@@ -25,6 +25,8 @@ namespace UserMaintenacne
 
             btnWriteFile.Text = Resource1.WriteToFile;
 
+            btnDelete.Text = Resource1.Delete;
+
             listUsers.DataSource = users;
             listUsers.DisplayMember = "FullName";
             listUsers.ValueMember = "ID";
@@ -63,6 +65,15 @@ namespace UserMaintenacne
                     sw.WriteLine();
                 }
             }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            dynamic actual = listUsers.SelectedItem;
+
+            User userToRemove = (User)actual;
+
+            users.Remove(actual);
         }
     }
 
