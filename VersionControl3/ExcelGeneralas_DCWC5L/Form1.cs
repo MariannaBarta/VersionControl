@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Excel_DCWC5L
+namespace ExcelGeneralas_DCWC5L
 {
     public partial class Form1 : Form
     {

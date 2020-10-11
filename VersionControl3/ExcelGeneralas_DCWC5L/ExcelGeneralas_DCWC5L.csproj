@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C8BC358-5B75-4EBF-854F-7E0EEAD74DD5}</ProjectGuid>
+    <ProjectGuid>{ED6D26D4-21CE-49F3-8282-294D48B37809}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Excel_DCWC5L</RootNamespace>
-    <AssemblyName>Excel_DCWC5L</AssemblyName>
+    <RootNamespace>ExcelGeneralas_DCWC5L</RootNamespace>
+    <AssemblyName>ExcelGeneralas_DCWC5L</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Excel_DCWC5L")]
+[assembly: AssemblyTitle("ExcelGeneralas_DCWC5L")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Excel_DCWC5L")]
+[assembly: AssemblyProduct("ExcelGeneralas_DCWC5L")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7c8bc358-5b75-4ebf-854f-7e0eead74dd5")]
+[assembly: Guid("ed6d26d4-21ce-49f3-8282-294d48b37809")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,4 +1,4 @@
-﻿namespace Excel_DCWC5L
+﻿namespace ExcelGeneralas_DCWC5L
 {
     partial class Form1
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Excel_DCWC5L.Properties
+namespace ExcelGeneralas_DCWC5L.Properties
 {
 
 
