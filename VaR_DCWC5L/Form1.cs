@@ -44,7 +44,7 @@ namespace VaR_DCWC5L
                             where item.Index == x.Index.Trim() && date <= x.TradingDay
                             select x)
                             .First();
-                value += (decimmal)last.Price * item.Volume;
+                value += (decimal)last.Price * item.Volume;
             }
             return value;
         }
