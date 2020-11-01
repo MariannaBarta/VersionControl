@@ -18,8 +18,8 @@ namespace Webszolgaltatas_DCWC5L
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
         BindingList<string> Currencies = new BindingList<string>();
-        string result = null;
-        string result_currency = null;
+        string result;
+        string result_currency;
 
         public Form1()
         {
