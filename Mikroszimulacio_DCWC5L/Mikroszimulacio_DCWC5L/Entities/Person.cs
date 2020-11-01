@@ -13,7 +13,7 @@ namespace Mikroszimulacio_DCWC5L.Entities
         public int NbrOfChildren { get; set; }
         public bool IsALive { get; set; }
 
-        piblic Person()
+        public Person()
         {
             IsALive = true;
         }
