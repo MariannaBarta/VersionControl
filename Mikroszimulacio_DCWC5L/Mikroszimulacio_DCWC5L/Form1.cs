@@ -18,9 +18,14 @@ namespace Mikroszimulacio_DCWC5L
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
 
-        Random rng = new Random(1234);
+        int StartYear = 2005;
+        int EndYear;
+        List<string> Results_Male = new List<string>();
+        List<string> Results_Female = new List<string>();
 
-        int zaroEv = new int();
+        Random rng = new Random();
+
+
 
         public Form1()
         {
@@ -29,13 +34,6 @@ namespace Mikroszimulacio_DCWC5L
             Population = GetPopulation(@"C:\Temp\nép-teszt.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
-
-            numericUpDown1.Minimum = 2005;
-            numericUpDown1.Maximum = 2100;
-            numericUpDown1.Value = 2025;
-
-            zaroEv = int.Parse(numericUpDown1.Value.ToString());
-
 
         }
 
@@ -63,14 +61,14 @@ namespace Mikroszimulacio_DCWC5L
 
         public List<BirthProbability> GetBirthProbabilities(string csvpath)
         {
-            List<BirthProbability> population = new List<BirthProbability>();
+            List<BirthProbability> birth_population = new List<BirthProbability>();
 
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
                 while (!sr.EndOfStream)
                 {
                     var line = sr.ReadLine().Split(';');
-                    population.Add(new BirthProbability()
+                    birth_population.Add(new BirthProbability()
                     {
                         Age = int.Parse(line[0]),
                         NbrOfChildren = int.Parse(line[1]),
@@ -79,20 +77,20 @@ namespace Mikroszimulacio_DCWC5L
                 }
             }
 
-            return population;
+            return birth_population;
         }
 
 
         public List<DeathProbability> GetDeathProbabilities(string csvpath)
         {
-            List<DeathProbability> population = new List<DeathProbability>();
+            List<DeathProbability> death_population = new List<DeathProbability>();
 
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
                 while (!sr.EndOfStream)
                 {
                     var line = sr.ReadLine().Split(';');
-                    population.Add(new DeathProbability()
+                    death_population.Add(new DeathProbability()
                     {
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[0]),
                         Age = int.Parse(line[1]),
@@ -101,17 +99,17 @@ namespace Mikroszimulacio_DCWC5L
                 }
             }
 
-            return population;
+            return death_population;
         }
 
-        public void Simulation()
+        public void Simulation(int StartYear, int EndYear)
         {
-            for (int year = 2005; year <= zaroEv; year++)
+            for (int year = StartYear; year <= EndYear; year++)
             {
-
                 for (int i = 0; i < Population.Count; i++)
                 {
-                    SimStep();
+                    Person person = Population[i];
+                    SimStep(year, person);
                 }
                 int nbrOfMales = (from x in Population
                                   where x.Gender == Gender.Male && x.IsAlive
@@ -119,8 +117,11 @@ namespace Mikroszimulacio_DCWC5L
                 int nbrOfFemales = (from x in Population
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
-                Console.WriteLine(
-                    string.Format("Szimulációs év:{0} \n\t Fiuk:{1} \n\t Lányok:{2} \n", year, nbrOfMales, nbrOfFemales));
+                
+                Results_Male.Add(Environment.NewLine + string.Format("Szimulációs év: {0}" + Environment.NewLine + "\tFiúk: {1}" , year, nbrOfMales, nbrOfFemales));
+                Results_Female.Add(Environment.NewLine + string.Format("Szimulációs év: {0}" + Environment.NewLine + "\tLányok: {2}", year, nbrOfMales, nbrOfFemales));
+                richTextBox1.AppendText(Results_Male.Last());
+                richTextBox1.AppendText(Results_Female.Last());
             }
         }
 
@@ -156,8 +157,16 @@ namespace Mikroszimulacio_DCWC5L
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Simulation();
-            DisplayResults();
+            richTextBox1.Text = "";
+            Results_Male.Clear();
+            Results_Female.Clear();
+            Population.Clear();
+            BirthProbabilities.Clear();
+            DeathProbabilities.Clear();
+            EndYear = decimal.ToInt32(numericUpDown1.Value);
+            Simulation(StartYear, EndYear);
+            richTextBox1.AppendText(Environment.NewLine);
+            //DisplayResults();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -167,5 +176,12 @@ namespace Mikroszimulacio_DCWC5L
             openFileDialog1.ShowDialog();
             textBox2.Text = openFileDialog1.FileName;
         }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Value = Math.Min(Math.Max(numericUpDown1.Value, numericUpDown1.Minimum), numericUpDown1.Maximum);
+        }
+
+
     }
 }
