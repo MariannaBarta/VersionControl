@@ -20,6 +20,8 @@ namespace Mikroszimulacio_DCWC5L
 
         Random rng = new Random(1234);
 
+        int zaroEv = new int();
+
         public Form1()
         {
             InitializeComponent();
@@ -28,7 +30,13 @@ namespace Mikroszimulacio_DCWC5L
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
 
-            dataGridView1.DataSource = Population;
+            numericUpDown1.Minimum = 2005;
+            numericUpDown1.Maximum = 2100;
+            numericUpDown1.Value = 2025;
+
+            zaroEv = int.Parse(numericUpDown1.Value.ToString());
+
+
         }
 
         public List<Person> GetPopulation(string csvpath)
@@ -98,7 +106,7 @@ namespace Mikroszimulacio_DCWC5L
 
         public void Simulation()
         {
-            for (int year = 2005; year <= 2024; year++)
+            for (int year = 2005; year <= zaroEv; year++)
             {
 
                 for (int i = 0; i < Population.Count; i++)
@@ -112,7 +120,7 @@ namespace Mikroszimulacio_DCWC5L
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
                 Console.WriteLine(
-                    string.Format("Év:{0} Fiuk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+                    string.Format("Szimulációs év:{0} \n\t Fiuk:{1} \n\t Lányok:{2} \n", year, nbrOfMales, nbrOfFemales));
             }
         }
 
@@ -146,5 +154,18 @@ namespace Mikroszimulacio_DCWC5L
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Simulation();
+            DisplayResults();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = @"C:\Temp";
+            openFileDialog1.ShowDialog();
+            textBox2.Text = openFileDialog1.FileName;
+        }
     }
 }
