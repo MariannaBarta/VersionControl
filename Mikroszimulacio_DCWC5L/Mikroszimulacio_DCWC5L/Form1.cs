@@ -20,6 +20,7 @@ namespace Mikroszimulacio_DCWC5L
 
         int StartYear = 2005;
         int EndYear;
+        string CurrentPath = "";
         List<string> Results_Male = new List<string>();
         List<string> Results_Female = new List<string>();
 
@@ -31,7 +32,7 @@ namespace Mikroszimulacio_DCWC5L
         {
             InitializeComponent();
 
-            Population = GetPopulation(@"C:\Temp\nép-teszt.csv");
+            Population = GetPopulation(@"C:\Temp\nép.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
 
@@ -39,8 +40,9 @@ namespace Mikroszimulacio_DCWC5L
 
         public List<Person> GetPopulation(string csvpath)
         {
+            
             List<Person> population = new List<Person>();
-
+            
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
                 while (!sr.EndOfStream)
@@ -61,8 +63,9 @@ namespace Mikroszimulacio_DCWC5L
 
         public List<BirthProbability> GetBirthProbabilities(string csvpath)
         {
+            
             List<BirthProbability> birth_population = new List<BirthProbability>();
-
+            
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
                 while (!sr.EndOfStream)
@@ -83,8 +86,9 @@ namespace Mikroszimulacio_DCWC5L
 
         public List<DeathProbability> GetDeathProbabilities(string csvpath)
         {
+            
             List<DeathProbability> death_population = new List<DeathProbability>();
-
+            
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
                 while (!sr.EndOfStream)
@@ -117,8 +121,8 @@ namespace Mikroszimulacio_DCWC5L
                 int nbrOfFemales = (from x in Population
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
-                
-                Results_Male.Add(Environment.NewLine + string.Format("Szimulációs év: {0}" + Environment.NewLine + "\tFiúk: {1}" , year, nbrOfMales, nbrOfFemales));
+
+                Results_Male.Add(Environment.NewLine + string.Format("Szimulációs év: {0}" + Environment.NewLine + "\tFiúk: {1}", year, nbrOfMales, nbrOfFemales));
                 Results_Female.Add(Environment.NewLine + string.Format("Szimulációs év: {0}" + Environment.NewLine + "\tLányok: {2}", year, nbrOfMales, nbrOfFemales));
                 richTextBox1.AppendText(Results_Male.Last());
                 richTextBox1.AppendText(Results_Female.Last());
@@ -160,12 +164,12 @@ namespace Mikroszimulacio_DCWC5L
             richTextBox1.Text = "";
             Results_Male.Clear();
             Results_Female.Clear();
-            Population.Clear();
-            BirthProbabilities.Clear();
-            DeathProbabilities.Clear();
+            //Population.Clear();
+            //BirthProbabilities.Clear();
+            //DeathProbabilities.Clear();
             EndYear = decimal.ToInt32(numericUpDown1.Value);
+            GetPopulation(CurrentPath);
             Simulation(StartYear, EndYear);
-            richTextBox1.AppendText(Environment.NewLine);
             //DisplayResults();
         }
 
@@ -174,7 +178,7 @@ namespace Mikroszimulacio_DCWC5L
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = @"C:\Temp";
             openFileDialog1.ShowDialog();
-            textBox2.Text = openFileDialog1.FileName;
+            CurrentPath = textBox2.Text = openFileDialog1.FileName;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
