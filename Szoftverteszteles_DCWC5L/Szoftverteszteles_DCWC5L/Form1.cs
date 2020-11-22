@@ -65,7 +65,10 @@ namespace Szoftverteszteles_DCWC5L
 
         private void btnSelectBall_Click(object sender, EventArgs e)
         {
-            Factory = new BallFactory();
+            Factory = new BallFactory
+            {
+                Ballcolor = btnColor.BackColor
+            };
         }
 
         private void DisplayNext()
