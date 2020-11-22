@@ -22,7 +22,9 @@ namespace Szoftverteszteles_DCWC5L
         public IToyFactory Factory
         {
             get { return _factory; }
-            set { _factory = value;
+            set
+            {
+                _factory = value;
                 DisplayNext();
             }
         }
@@ -73,7 +75,7 @@ namespace Szoftverteszteles_DCWC5L
 
         private void DisplayNext()
         {
-            if (_nextToy!=null)
+            if (_nextToy != null)
             {
                 Controls.Remove(_nextToy);
             }
@@ -89,11 +91,20 @@ namespace Szoftverteszteles_DCWC5L
             var colorPicker = new ColorDialog();
 
             colorPicker.Color = button.BackColor;
-            if (colorPicker.ShowDialog()!= DialogResult.OK)
+            if (colorPicker.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
             button.BackColor = colorPicker.Color;
+        }
+
+        private void btnSelectPresent_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory
+            {
+                BoxColor = btnPresentBox.BackColor,
+                RibbonColor = btnPresentRibbon.BackColor
+            };
         }
     }
 }
