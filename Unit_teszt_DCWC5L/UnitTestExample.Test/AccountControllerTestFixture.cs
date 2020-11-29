@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Activities;
 using UnitTestExample.Controllers;
 
 namespace UnitTestExample.Test
@@ -70,5 +67,31 @@ namespace UnitTestExample.Test
             Assert.AreNotEqual(Guid.Empty, actualregResult.ID);
         }
 
+        [
+            Test,
+            TestCase("tesztelek.uni-corvinus.hu", "JoJelszo123"),
+            TestCase("csajolesz@uni-corvinus", "Ezisjo1234"),
+            TestCase("tesztelek@uni-corvinus.hu", "jojelszo123"),
+            TestCase("csajolesz@uni-corvinus.hu", "Ezisjojojojo"),
+            TestCase("tesztelek@uni-corvinus.hu", "JOJELSZO123"),
+            TestCase("csajolesz@uni-corvinus.hu", "Ezjo12"),
+        ]
+        public void TestRegisterValidateException(string email, string password)
+        {
+            // Arrange
+            var accountregController = new AccountController();
+
+            // Act + Assert
+            try
+            {
+                var actualregResult = accountregController.Register(email, password);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOf<ValidationException>(ex);
+            }
+                                 
+        }
     }
 }

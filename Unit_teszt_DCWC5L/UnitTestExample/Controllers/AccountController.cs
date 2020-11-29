@@ -12,7 +12,7 @@ using UnitTestExample.Services;
 namespace UnitTestExample.Controllers
 {
     public class AccountController
-    {        
+    {
         public IAccountManager AccountManager { get; set; }
 
         public AccountController()
@@ -22,10 +22,11 @@ namespace UnitTestExample.Controllers
 
         public Account Register(string email, string password)
         {
-            if(!ValidateEmail(email))
+
+            if (!ValidateEmail(email))
                 throw new ValidationException(
                     "A megadott e-mail cím nem megfelelő!");
-            if(!ValidateEmail(email))
+            if (!ValidateEmail(email))
                 throw new ValidationException(
                     "A megadottt jelszó nem megfelelő!\n" +
                     "A jelszó legalább 8 karakter hosszú kell legyen, csak az angol ABC betűiből és számokból állhat, és tartalmaznia kell legalább egy kisbetűt, egy nagybetűt és egy számot.");
@@ -39,12 +40,13 @@ namespace UnitTestExample.Controllers
             var newAccount = AccountManager.CreateAccount(account);
 
             return newAccount;
+
         }
 
         public bool ValidateEmail(string email)
-        {            
+        {
             return Regex.IsMatch(
-                email, 
+                email,
                 @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
         }
 
@@ -53,7 +55,7 @@ namespace UnitTestExample.Controllers
             return Regex.IsMatch(
                 password,
                 @"^(?=.{8,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$");
-                      
+
         }
     }
 }
